@@ -11,6 +11,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ApiResource
  * @ORM\Entity
+ * @ORM\Table(
+ *     name="greeting",
+ *     schema="@deposit"
+ * )
  */
 class Greeting
 {

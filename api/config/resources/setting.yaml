@@ -1,0 +1,16 @@
+App\Entity\User: ~
+App\Entity\Setting:
+    collectionOperations:
+        create:
+            method: 'POST'
+            input: 'App\Entity\SettingCreate'
+            output: 'App\Entity\SettingOutput'
+    itemOperations:
+        query:
+            method: 'GET'
+            input: 'App\Entity\Query\SettingQuery'
+            output: 'App\Entity\SettingOutput'
+        update:
+            method: 'PUT'
+            input: 'App\Entity\SettingUpdate'
+            output: 'App\Entity\SettingOutput'
