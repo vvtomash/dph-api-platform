@@ -1,10 +1,8 @@
 <?php
-
-
 namespace App\Command;
 
-
-class Command
+interface Command
 {
-
+    public function getEntity();
+    public function getApiResource();
 }

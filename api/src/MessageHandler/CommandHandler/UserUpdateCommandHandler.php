@@ -1,12 +1,12 @@
 <?php
-namespace App\MessageHandler\QueryHandler;
+namespace App\MessageHandler\CommandHandler;
 
-use App\Query\UserQuery;
+use App\Command\UserUpdateCommand;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class UserQueryHandler implements MessageHandlerInterface
+class UserUpdateCommandHandler implements MessageHandlerInterface
 {
     /** @var ManagerRegistry  */
     private $managerRegistry;
@@ -16,10 +16,20 @@ class UserQueryHandler implements MessageHandlerInterface
         $this->managerRegistry = $managerRegistry;
     }
 
-    public function __invoke(UserUpdateCommand $command)
+    public function __invoke(UserUpdateCommand $command): User
     {
-        $repository = $this->managerRegistry->getRepository(User::class);
-        $user = $repository->find($query->getId());
+        error_log(__METHOD__);
+        $user = $command->getEntity();
+
+        $userUpdateDto = $command->getApiResource();
+        $user->setName($userUpdateDto->getName());
+
+        error_log(print_r($user, 1));
+        $userManager = $this->managerRegistry->getManagerForClass(User::class);
+        $userManager->persist($user);
+        $userManager->flush();
+        error_log(__METHOD__);
+
         return $user;
     }
 }

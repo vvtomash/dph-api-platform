@@ -7,28 +7,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     shortName="User",
- *     itemOperations={
- *          "get"={
- *               "method"="GET",
- *               "output"=App\Dto\UserOutputDto::class,
- *          },
- *          "update"={
- *               "method"="PUT",
- *               "input"=App\Dto\UserUpdateDto::class,
- *               "output"=App\Dto\UserOutputDto::class,
- *          }
- *     },
+ *     shortName="Plan",
+ *     itemOperations={},
  *     collectionOperations={
- *          "create"={
- *               "method"="POST",
- *               "input"=App\Dto\UserCreateDto::class,
- *               "output"=App\Dto\UserOutputDto::class
- *          }
+ *        "create"={
+                "method"="POST",
+ *              "input"=App\Dto\PlanCreateDto::class
+ *         }
  *     }
  * )
  */
-class User
+class Plan
 {
     /**
      * @ApiProperty(identifier=true)
@@ -39,11 +28,28 @@ class User
      * @var string
      * @Assert\NotBlank
      */
-    public $email = '';
+    public $price;
 
     /**
      * @var string
      * @Assert\NotBlank
      */
-    public $name = '';
+    public $currency;
+
+    /**
+     * @var int
+     * @Assert\NotBlank
+     */
+    public $period;
+
+    /**
+     * @var int
+     * @Assert\NotBlank
+     */
+    public $buyPeriod;
+
+    /**
+     * @var User
+     */
+    public $user;
 }

@@ -1,12 +1,12 @@
 <?php
 namespace App\MessageHandler\CommandHandler;
 
-use App\Command\UserUpdateCommand;
+use App\Command\AddUserPlanCommand;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class UserUpdateCommandHandler implements MessageHandlerInterface
+class AddUserPlanCommandHandler implements MessageHandlerInterface
 {
     /** @var ManagerRegistry  */
     private $managerRegistry;
@@ -16,20 +16,13 @@ class UserUpdateCommandHandler implements MessageHandlerInterface
         $this->managerRegistry = $managerRegistry;
     }
 
-    public function __invoke(UserUpdateCommand $command): User
+    public function __invoke(AddUserPlanCommand $command)
     {
         error_log(__METHOD__);
         $user = $command->getEntity();
+        error_log(\json_encode($user));
 
-        $userUpdateDto = $command->getApiResource();
-        $user->setName($userUpdateDto->getName());
-
-        error_log(print_r($user, 1));
+        error_log(print_r($command->getApiResource(), 1));
         $userManager = $this->managerRegistry->getManagerForClass(User::class);
-        $userManager->persist($user);
-        $userManager->flush();
-        error_log(__METHOD__);
-
-        return $user;
     }
 }

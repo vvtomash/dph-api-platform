@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity\Query;
+namespace App\Query;
 
 class SettingQuery extends ItemQuery
 {

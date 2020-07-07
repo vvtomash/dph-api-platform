@@ -9,7 +9,7 @@ use Symfony\Component\Messenger\Exception\ValidationFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
-class ItemDataProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface
+class ItemDataQueryProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface
 {
     /** @var MessageBusInterface  */
     private $queryBus;
@@ -28,8 +28,10 @@ class ItemDataProvider implements ItemDataProviderInterface, RestrictedDataProvi
             throw new ValidationException($e->getViolations());
         }
         $handledStamp = $envelope->last(HandledStamp::class);
-        return $handledStamp->getResult();
-
+        if ($handledStamp instanceof HandledStamp) {
+            return $handledStamp->getResult();
+        }
+        throw new \Exception("Handler for $resourceQueryClass has to return entity");
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool

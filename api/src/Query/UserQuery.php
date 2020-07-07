@@ -1,15 +1,7 @@
 <?php
-namespace App\Entity\Query;
+namespace App\Query;
 
-class UserQuery
+class UserQuery extends ItemQuery
 {
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
 }

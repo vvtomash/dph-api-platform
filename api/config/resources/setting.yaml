@@ -1,4 +1,3 @@
-App\Entity\User: ~
 App\Entity\Setting:
     collectionOperations:
         create:
@@ -11,6 +10,10 @@ App\Entity\Setting:
             input: 'App\Entity\Query\SettingQuery'
             output: 'App\Entity\SettingOutput'
         update:
-            method: 'PUT'
+            method: 'PATCH'
             input: 'App\Entity\SettingUpdate'
             output: 'App\Entity\SettingOutput'
+    properties:
+        userId:
+            identifier: true
+            

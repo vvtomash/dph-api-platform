@@ -6,7 +6,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ApiNormalizer implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
+class ApiNormalizer // implements NormalizerInterface, DenormalizerInterface, SerializerAwareInterface
 {
     private $decorated;
 
@@ -26,7 +26,6 @@ class ApiNormalizer implements NormalizerInterface, DenormalizerInterface, Seria
 
     public function normalize($object, string $format = null, array $context = [])
     {
-        error_log(__METHOD__);
         $data = $this->decorated->normalize($object, $format, $context);
         if (is_array($data)) {
             $data['date'] = date(\DateTime::RFC3339);

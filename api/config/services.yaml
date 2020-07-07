@@ -25,3 +25,28 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Lib\:
+        resource: '../src/Lib'
+        
+#    App\Serializer\ApiNormalizer:
+#        decorates: 'api_platform.serializer.normalizer.item'
+#        arguments: [ '@App\Serializer\ApiNormalizer.inner' ]
+        
+    ValidationMiddleware\Symfony\Component\Messenger\Middleware:
+        class: ValidationMiddleware\Symfony\Component\Messenger\Middleware
+        autowire: false
+        arguments:
+            - '@ApiPlatform\Core\Bridge\Symfony\Validator\Validator'
+        
+    # custom quote strategy for doctrine to implement deposit aliases strategy
+    app.doctrine.dph_quote_strategy:
+        class: App\Lib\Doctrine\Orm\Mapping\DphQuoteStrategy
+        arguments:
+            $schemaAliases:
+                '@engine': 'aligator_engine_deposit'
+                '@deposit': 'depositphotos'
+                '@admin': 'depositphotos_admin'
+                '@stats': 'stats'
+                '@tmp': 'test'

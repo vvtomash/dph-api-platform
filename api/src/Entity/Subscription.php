@@ -6,14 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(
- *     name="manager_user",
- *     schema="@engine"
+ *     name="buyer_subscription",
+ *     schema="@deposit"
  * )
  */
-class User
+class Subscription
 {
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",name="subscription_itansaction_id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -22,13 +22,34 @@ class User
     /**
      * @ORM\Column
      */
-    private $email = '';
+    private $count;
 
     /**
-     * @ORM\Column(name="username")
+     * @ORM\Column
      * @return string
      */
-    private $name = '';
+    private $price;
+    /**
+     * @ORM\Column
+     * @return string
+     */
+    private $currency;
+    /**
+     * @ORM\Column(type="integer")
+     * @return int
+     */
+    private $period;
+    /**
+     * @ORM\Column(type="integer",name="buy_period")
+     * @return int
+     */
+    private $buyPeriod;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="subscriptions")
+     * @var User
+     */
+    private $user;
 
     /**
      * @return int
@@ -39,28 +60,44 @@ class User
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getEmail(): string
+    public function getCount()
     {
-        return $this->email;
+        return $this->count;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getName(): string
+    public function getCurrency()
     {
-        return $this->name;
+        return $this->currency;
     }
 
-    public function setEmail($email)
+    /**
+     * @return mixed
+     */
+    public function getPeriod()
     {
-        $this->email = $email;
+        return $this->period;
     }
 
-    public function setName($name)
+
+    /**
+     * @return mixed
+     */
+    public function getBuyPeriod()
     {
-        $this->name = $name;
+        return $this->buyPeriod;
     }
 }

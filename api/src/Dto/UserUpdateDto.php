@@ -1,24 +1,13 @@
 <?php
 namespace App\Dto;
 
-class UserCreateDto
+class UserUpdateDto
 {
-    private $email;
-
     private $name;
 
-    public function __construct(string $email, string $name)
+    public function __construct(string $name)
     {
-        $this->email = $email;
         $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail(): string
-    {
-        return $this->email;
     }
 
     /**

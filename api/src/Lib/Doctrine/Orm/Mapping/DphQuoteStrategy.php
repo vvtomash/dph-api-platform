@@ -1,5 +1,5 @@
 <?php
-namespace Libs\Doctrine\Orm\Mapping;
+namespace App\Lib\Doctrine\Orm\Mapping;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\ORM\Mapping\ClassMetadata;
